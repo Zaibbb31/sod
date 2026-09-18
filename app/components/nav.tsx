@@ -14,7 +14,7 @@ export interface NavbarProps {
 }
 
 const defaultNavLinks: NavItem[] = [
-  { label: "Portfolio", href: "/#portfolio" },
+  { label: "Portfolio", href: "/Project" },
   { label: "Services", href: "/#services" },
   { label: "About us", href: "/#about" },
   { label: "Contact us", href: "/contact" },
@@ -55,7 +55,7 @@ export default function Navbar({ theme = "light" }: NavbarProps) {
             {/* Left Links */}
             <nav className="hidden md:flex items-center gap-10 lg:gap-14 flex-1 justify-start">
               <Link
-                href="/#portfolio"
+                href="/Project"
                 className={`text-sm lg:text-base font-normal tracking-wide transition-opacity duration-200 ${
                   isDarkHero ? "text-zinc-800 hover:text-black" : "text-white/90 hover:text-white"
                 }`}

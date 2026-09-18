@@ -80,7 +80,7 @@ export default function Footer() {
 
             {/* Navigation Links */}
             <nav className="flex flex-wrap items-center gap-6 sm:gap-10 text-sm sm:text-base font-medium text-zinc-900">
-              <Link href="/#portfolio" className="hover:text-zinc-600 transition-colors">
+              <Link href="/Project" className="hover:text-zinc-600 transition-colors">
                 Portfolio
               </Link>
               <Link href="/#services" className="hover:text-zinc-600 transition-colors">
