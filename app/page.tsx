@@ -383,7 +383,7 @@ export default function Home() {
 
                 {/* Button */}
                 <Link
-                  href="#contact"
+                  href="/contact"
                   className="w-full py-3 bg-white text-zinc-900 border border-zinc-200/90 text-sm font-medium hover:bg-zinc-100 transition-colors text-center shadow-xs block"
                 >
                   View More
@@ -487,7 +487,7 @@ export default function Home() {
                   <div className="pt-2">
                     <button
                       type="submit"
-                      className="w-full py-3.5 sm:py-4 bg-[#fbf7f2] border border-zinc-300 text-zinc-900 font-semibold text-sm sm:text-base hover:bg-zinc-100 active:scale-[0.99] transition-all cursor-pointer shadow-xs"
+                      className="w-full py-3.5 sm:py-4 bg-[#242424] text-white font-semibold text-sm sm:text-base hover:bg-[#181818] active:scale-[0.99] transition-all cursor-pointer shadow-md tracking-wider uppercase"
                     >
                       Submit
                     </button>

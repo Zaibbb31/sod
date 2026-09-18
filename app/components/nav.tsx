@@ -9,16 +9,22 @@ export interface NavItem {
   href: string;
 }
 
+export interface NavbarProps {
+  theme?: "light" | "dark";
+}
+
 const defaultNavLinks: NavItem[] = [
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Services", href: "#services" },
-  { label: "About us", href: "#about" },
-  { label: "Contact us", href: "#contact" },
+  { label: "Portfolio", href: "/#portfolio" },
+  { label: "Services", href: "/#services" },
+  { label: "About us", href: "/#about" },
+  { label: "Contact us", href: "/contact" },
 ];
 
-export default function Navbar() {
+export default function Navbar({ theme = "light" }: NavbarProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+
+  const isDarkHero = theme === "dark";
 
   // Monitor scroll position to collapse into the floating bar
   useEffect(() => {
@@ -49,14 +55,18 @@ export default function Navbar() {
             {/* Left Links */}
             <nav className="hidden md:flex items-center gap-10 lg:gap-14 flex-1 justify-start">
               <Link
-                href="#portfolio"
-                className="text-sm lg:text-base font-normal tracking-wide text-white/90 hover:text-white transition-opacity duration-200"
+                href="/#portfolio"
+                className={`text-sm lg:text-base font-normal tracking-wide transition-opacity duration-200 ${
+                  isDarkHero ? "text-zinc-800 hover:text-black" : "text-white/90 hover:text-white"
+                }`}
               >
                 Portfolio
               </Link>
               <Link
-                href="#services"
-                className="text-sm lg:text-base font-normal tracking-wide text-white/90 hover:text-white transition-opacity duration-200"
+                href="/#services"
+                className={`text-sm lg:text-base font-normal tracking-wide transition-opacity duration-200 ${
+                  isDarkHero ? "text-zinc-800 hover:text-black" : "text-white/90 hover:text-white"
+                }`}
               >
                 Services
               </Link>
@@ -73,6 +83,7 @@ export default function Navbar() {
                   alt="Logoipsum"
                   width={150}
                   height={30}
+                  className={isDarkHero ? "brightness-0 object-contain" : "object-contain"}
                   priority
                 />
               </Link>
@@ -81,14 +92,18 @@ export default function Navbar() {
             {/* Right Links */}
             <div className="hidden md:flex items-center gap-10 lg:gap-14 flex-1 justify-end">
               <Link
-                href="#about"
-                className="text-sm lg:text-base font-normal tracking-wide text-white/90 hover:text-white transition-opacity duration-200"
+                href="/#about"
+                className={`text-sm lg:text-base font-normal tracking-wide transition-opacity duration-200 ${
+                  isDarkHero ? "text-zinc-800 hover:text-black" : "text-white/90 hover:text-white"
+                }`}
               >
                 About us
               </Link>
               <Link
-                href="#contact"
-                className="text-sm lg:text-base font-normal tracking-wide text-white/90 hover:text-white transition-opacity duration-200"
+                href="/contact"
+                className={`text-sm lg:text-base font-normal tracking-wide transition-opacity duration-200 ${
+                  isDarkHero ? "text-zinc-800 hover:text-black" : "text-white/90 hover:text-white"
+                }`}
               >
                 Contact us
               </Link>
@@ -99,19 +114,23 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={() => setDropdownOpen(!dropdownOpen)}
-                className="p-2.5 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 text-white focus:outline-none cursor-pointer transition-all"
+                className={`p-2.5 rounded-lg border focus:outline-none cursor-pointer transition-all ${
+                  isDarkHero
+                    ? "bg-black/5 hover:bg-black/10 border-black/15 text-zinc-900"
+                    : "bg-white/10 hover:bg-white/20 border-white/15 text-white"
+                }`}
                 aria-label="Toggle menu"
               >
                 {dropdownOpen ? (
-                  <svg className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                   </svg>
                 ) : (
                   <div className="grid grid-cols-2 gap-[3px] w-4 h-4 p-[1px]">
-                    <span className="w-[5px] h-[5px] bg-white rounded-[0.5px]" />
-                    <span className="w-[5px] h-[5px] bg-white rounded-[0.5px]" />
-                    <span className="w-[5px] h-[5px] bg-white rounded-[0.5px]" />
-                    <span className="w-[5px] h-[5px] bg-white rounded-[0.5px]" />
+                    <span className={`w-[5px] h-[5px] rounded-[0.5px] ${isDarkHero ? "bg-zinc-900" : "bg-white"}`} />
+                    <span className={`w-[5px] h-[5px] rounded-[0.5px] ${isDarkHero ? "bg-zinc-900" : "bg-white"}`} />
+                    <span className={`w-[5px] h-[5px] rounded-[0.5px] ${isDarkHero ? "bg-zinc-900" : "bg-white"}`} />
+                    <span className={`w-[5px] h-[5px] rounded-[0.5px] ${isDarkHero ? "bg-zinc-900" : "bg-white"}`} />
                   </div>
                 )}
               </button>

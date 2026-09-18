@@ -5,7 +5,11 @@ import TilesBackground from "./tiles-bg";
 
 export default function Footer() {
   return (
-    <TilesBackground id="footer" className="py-16 sm:py-20 text-[#271912]" tileSize={380}>
+    <TilesBackground
+      id="footer"
+      className="py-16 sm:py-20 text-[#271912] border-t border-zinc-200/60"
+      tileSize={380}
+    >
       <footer className="max-w-8xl mx-auto px-6 sm:px-10 lg:px-16 w-full">
         {/* Top Section */}
         <div className="flex flex-col lg:flex-row justify-between items-start gap-10 lg:gap-16 mb-12 sm:mb-16">
@@ -76,16 +80,16 @@ export default function Footer() {
 
             {/* Navigation Links */}
             <nav className="flex flex-wrap items-center gap-6 sm:gap-10 text-sm sm:text-base font-medium text-zinc-900">
-              <Link href="#portfolio" className="hover:text-zinc-600 transition-colors">
+              <Link href="/#portfolio" className="hover:text-zinc-600 transition-colors">
                 Portfolio
               </Link>
-              <Link href="#services" className="hover:text-zinc-600 transition-colors">
+              <Link href="/#services" className="hover:text-zinc-600 transition-colors">
                 Services
               </Link>
-              <Link href="#about" className="hover:text-zinc-600 transition-colors">
+              <Link href="/#about" className="hover:text-zinc-600 transition-colors">
                 About us
               </Link>
-              <Link href="#contact" className="hover:text-zinc-600 transition-colors">
+              <Link href="/contact" className="hover:text-zinc-600 transition-colors">
                 Contact us
               </Link>
             </nav>
