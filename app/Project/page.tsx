@@ -18,6 +18,15 @@ interface Project {
 
 const projectsData: Project[] = [
   {
+    id: "maison-doree",
+    title: "Maison Dorée",
+    client: "Ciel Penthouse",
+    type: "Residential",
+    category: "Residential",
+    image:
+      "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=85",
+  },
+  {
     id: "birchwood",
     title: "The Birchwood Residence",
     client: "The Whitfield Family",
@@ -168,7 +177,11 @@ export default function ProjectsPage() {
           {/* 3-Column Projects Grid with 3:4 Aspect Ratio Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 sm:gap-10 lg:gap-12">
             {filteredProjects.map((project) => (
-              <div key={project.id} className="group flex flex-col">
+              <Link
+                key={project.id}
+                href={`/Project/${project.id}`}
+                className="group flex flex-col cursor-pointer transition-all"
+              >
                 {/* Image Container with 3:4 Aspect Ratio */}
                 <div className="relative w-full aspect-[3/4] overflow-hidden bg-zinc-200 shadow-sm">
                   <Image
@@ -181,8 +194,11 @@ export default function ProjectsPage() {
                 </div>
 
                 {/* Project Title */}
-                <h3 className="text-lg sm:text-xl font-medium tracking-tight text-zinc-900 mt-4 sm:mt-5 pb-3 border-b border-zinc-300/80">
-                  {project.title}
+                <h3 className="text-lg sm:text-xl font-medium tracking-tight text-zinc-900 mt-4 sm:mt-5 pb-3 border-b border-zinc-300/80 group-hover:text-zinc-600 transition-colors flex items-center justify-between">
+                  <span>{project.title}</span>
+                  <span className="text-sm opacity-0 group-hover:opacity-100 transition-opacity">
+                    &rarr;
+                  </span>
                 </h3>
 
                 {/* Client & Type Row */}
@@ -204,7 +220,7 @@ export default function ProjectsPage() {
                     </span>
                   </div>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </main>
