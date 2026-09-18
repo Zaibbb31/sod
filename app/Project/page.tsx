@@ -111,7 +111,7 @@ export default function ProjectsPage() {
       : projectsData.filter((p) => p.category === activeCategory);
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#e5e7eb] text-zinc-900 selection:bg-zinc-900 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#FFFFFF] text-zinc-900 selection:bg-zinc-900 selection:text-white">
       {/* Top Navbar */}
       <Navbar theme="dark" />
 

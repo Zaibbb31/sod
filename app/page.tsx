@@ -61,8 +61,6 @@ function AnimatedCounter({
 }
 
 export default function Home() {
-  const [isStoryExpanded, setIsStoryExpanded] = useState(false);
-
   // Form State
   const [formSubmitted, setFormSubmitted] = useState(false);
   const [formData, setFormData] = useState({
@@ -148,7 +146,7 @@ export default function Home() {
   ];
 
   return (
-    <div className="min-h-screen w-full flex flex-col bg-[#fdfdfd] font-sans selection:bg-black selection:text-white relative">
+    <div className="min-h-screen w-full flex flex-col bg-[#FFFFFF] font-sans selection:bg-black selection:text-white relative">
       {/* Global Top / Floating Scrolled Navbar (Z-[9999] above all sections) */}
       <Navbar />
 
@@ -206,93 +204,44 @@ export default function Home() {
       {/* ----------------- 2. ABOUT US SECTION WITH TILES BACKGROUND ----------------- */}
       <TilesBackground
         id="about"
-        className="flex items-center justify-center py-14 sm:py-20 lg:py-24 text-zinc-900 transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden"
+        className="flex items-center justify-center py-16 sm:py-24 lg:py-28 text-zinc-900"
         tileSize={380}
       >
         <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 w-full text-center relative">
-          {/* Initial State (Collapsed View) */}
-          <div
-            className={`transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-              !isStoryExpanded
-                ? "opacity-100 scale-100 max-h-[350px] transform translate-y-0"
-                : "opacity-0 scale-95 max-h-0 overflow-hidden pointer-events-none transform -translate-y-6"
-            }`}
-          >
-            <div className="max-w-xl mx-auto flex flex-col items-center justify-center">
-              <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-zinc-900 mb-3">
-                About Us
-              </h2>
-              <p className="text-base sm:text-lg text-zinc-600 font-normal leading-relaxed max-w-md mx-auto mb-6 sm:mb-8">
-                Where thoughtful design meets<br className="hidden sm:inline" /> timeless beauty and everyday comfort.
-              </p>
-              <button
-                type="button"
-                onClick={() => setIsStoryExpanded(true)}
-                className="group inline-flex items-center gap-1.5 text-sm sm:text-base font-semibold text-zinc-900 border-b border-zinc-900 pb-0.5 hover:opacity-75 transition-all cursor-pointer"
-              >
-                <span>Discover our story</span>
-                <span className="inline-block transition-transform duration-300 group-hover:translate-x-1.5">
-                  &rarr;
-                </span>
-              </button>
-            </div>
-          </div>
+          <div className="w-full flex flex-col items-center justify-center">
+            {/* Header Tag */}
+            <p className="text-xs font-semibold tracking-[0.25em] text-zinc-500 uppercase mb-5 sm:mb-7">
+              About Us
+            </p>
 
-          {/* Expanded State (Smooth Unfold & Collapse without unmounting) */}
-          <div
-            className={`transition-all duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] overflow-hidden ${
-              isStoryExpanded
-                ? "opacity-100 scale-100 max-h-[1400px] transform translate-y-0 pointer-events-auto"
-                : "opacity-0 scale-95 max-h-0 pointer-events-none transform translate-y-8"
-            }`}
-          >
-            <div className="w-full flex flex-col items-center justify-center pt-2">
-              {/* Header Tag */}
-              <p className="text-xs font-semibold tracking-[0.25em] text-zinc-500 uppercase mb-5 sm:mb-7">
-                About Us
-              </p>
+            {/* Main Statement */}
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-normal tracking-tight text-zinc-900 leading-[1.25] max-w-3xl mx-auto mb-14 sm:mb-20">
+              We are an interior design studio creating warm, timeless spaces shaped by thoughtful details, natural materials, and functionality.
+            </h2>
 
-              {/* Main Statement */}
-              <h2 className="text-2xl sm:text-4xl md:text-5xl font-normal tracking-tight text-zinc-900 leading-[1.25] max-w-3xl mx-auto mb-14 sm:mb-20">
-                We are an interior design studio creating warm, timeless spaces shaped by thoughtful details, natural materials, and functionality.
-              </h2>
-
-              {/* Stats Bar with Vertical Divider Lines & Animated Counter Numbers */}
-              <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-10 gap-x-4 border-t border-zinc-200/80 pt-10 sm:pt-12 mb-10 sm:mb-14">
-                {statsData.map((stat, idx) => (
-                  <div
-                    key={stat.label}
-                    className={`flex flex-col items-center justify-center px-4 ${
-                      idx !== statsData.length - 1 ? "lg:border-r lg:border-zinc-200/90" : ""
-                    }`}
-                  >
-                    <span className="text-xs sm:text-sm font-medium text-zinc-500 mb-2">
-                      {stat.label}
-                    </span>
-                    <span className="text-4xl sm:text-5xl md:text-6xl font-semibold text-zinc-900 tracking-tight">
-                      <AnimatedCounter
-                        target={stat.target}
-                        suffix={stat.suffix}
-                        decimals={stat.decimals}
-                        duration={1800}
-                        trigger={isStoryExpanded}
-                      />
-                    </span>
-                  </div>
-                ))}
-              </div>
-
-              {/* Collapse / Close Button */}
-              <button
-                type="button"
-                onClick={() => setIsStoryExpanded(false)}
-                className="group inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-wider text-zinc-600 hover:text-zinc-950 uppercase border-b border-zinc-300 hover:border-zinc-950 pb-0.5 transition-all duration-200 cursor-pointer"
-              >
-                <span className="inline-block transition-transform duration-200 group-hover:-translate-y-1">
-                  &uarr;
-                </span>
-                <span>Show Less</span>
-              </button>
+            {/* Stats Bar with Vertical Divider Lines & Animated Counter Numbers */}
+            <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-10 gap-x-4 border-t border-zinc-200/80 pt-10 sm:pt-12">
+              {statsData.map((stat, idx) => (
+                <div
+                  key={stat.label}
+                  className={`flex flex-col items-center justify-center px-4 ${
+                    idx !== statsData.length - 1 ? "lg:border-r lg:border-zinc-200/90" : ""
+                  }`}
+                >
+                  <span className="text-xs sm:text-sm font-medium text-zinc-500 mb-2">
+                    {stat.label}
+                  </span>
+                  <span className="text-4xl sm:text-5xl md:text-6xl font-semibold text-zinc-900 tracking-tight">
+                    <AnimatedCounter
+                      target={stat.target}
+                      suffix={stat.suffix}
+                      decimals={stat.decimals}
+                      duration={1800}
+                      trigger={true}
+                    />
+                  </span>
+                </div>
+              ))}
             </div>
           </div>
         </div>
@@ -359,7 +308,7 @@ export default function Home() {
             {servicesData.map((service, idx) => (
               <div
                 key={idx}
-                className="flex flex-col bg-[#ededf0]/60 border border-zinc-200/90 p-4 sm:p-5 shadow-sm hover:shadow-md transition-shadow duration-300"
+                className="flex flex-col bg-[#FFFFFF] border border-zinc-200/90 p-4 sm:p-5 shadow-sm hover:shadow-md transition-shadow duration-300"
               >
                 {/* Image */}
                 <div className="relative aspect-square w-full overflow-hidden bg-zinc-200 mb-5">
@@ -399,8 +348,8 @@ export default function Home() {
         {/* Full Bleed End-to-End Background Image */}
         <div className="absolute inset-0 w-full h-full z-0">
           <Image
-            src="/contact-bg.jpg"
-            alt="Warm Mocha Marble & Wood Grain Background"
+            src="/cta.jpg"
+            alt="Interior Architecture Studio Atmosphere"
             fill
             priority
             unoptimized
@@ -442,7 +391,7 @@ export default function Home() {
                       placeholder="Full Name"
                       value={formData.fullName}
                       onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full bg-[#271912] text-white placeholder:text-zinc-300/80 px-4 py-3.5 sm:py-4 border-0 focus:outline-none focus:ring-1 focus:ring-zinc-400 text-sm sm:text-base"
+                      className="w-full bg-[#242424] text-white placeholder:text-zinc-300/80 px-4 py-3.5 sm:py-4 border-0 focus:outline-none focus:ring-1 focus:ring-zinc-400 text-sm sm:text-base"
                     />
                   </div>
                   <div>
@@ -452,7 +401,7 @@ export default function Home() {
                       placeholder="Contact Number"
                       value={formData.contactNumber}
                       onChange={(e) => setFormData({ ...formData, contactNumber: e.target.value })}
-                      className="w-full bg-[#271912] text-white placeholder:text-zinc-300/80 px-4 py-3.5 sm:py-4 border-0 focus:outline-none focus:ring-1 focus:ring-zinc-400 text-sm sm:text-base"
+                      className="w-full bg-[#242424] text-white placeholder:text-zinc-300/80 px-4 py-3.5 sm:py-4 border-0 focus:outline-none focus:ring-1 focus:ring-zinc-400 text-sm sm:text-base"
                     />
                   </div>
                   <div>
@@ -462,7 +411,7 @@ export default function Home() {
                       placeholder="Email Address"
                       value={formData.emailAddress}
                       onChange={(e) => setFormData({ ...formData, emailAddress: e.target.value })}
-                      className="w-full bg-[#271912] text-white placeholder:text-zinc-300/80 px-4 py-3.5 sm:py-4 border-0 focus:outline-none focus:ring-1 focus:ring-zinc-400 text-sm sm:text-base"
+                      className="w-full bg-[#242424] text-white placeholder:text-zinc-300/80 px-4 py-3.5 sm:py-4 border-0 focus:outline-none focus:ring-1 focus:ring-zinc-400 text-sm sm:text-base"
                     />
                   </div>
                   <div>
@@ -471,7 +420,7 @@ export default function Home() {
                       placeholder="Project Type"
                       value={formData.projectType}
                       onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                      className="w-full bg-[#271912] text-white placeholder:text-zinc-300/80 px-4 py-3.5 sm:py-4 border-0 focus:outline-none focus:ring-1 focus:ring-zinc-400 text-sm sm:text-base"
+                      className="w-full bg-[#242424] text-white placeholder:text-zinc-300/80 px-4 py-3.5 sm:py-4 border-0 focus:outline-none focus:ring-1 focus:ring-zinc-400 text-sm sm:text-base"
                     />
                   </div>
                   <div>
@@ -481,7 +430,7 @@ export default function Home() {
                       placeholder="Tell Us About Your Project"
                       value={formData.message}
                       onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full bg-[#271912] text-white placeholder:text-zinc-300/80 px-4 py-3.5 sm:py-4 border-0 focus:outline-none focus:ring-1 focus:ring-zinc-400 text-sm sm:text-base resize-none"
+                      className="w-full bg-[#242424] text-white placeholder:text-zinc-300/80 px-4 py-3.5 sm:py-4 border-0 focus:outline-none focus:ring-1 focus:ring-zinc-400 text-sm sm:text-base resize-none"
                     />
                   </div>
                   <div className="pt-2">

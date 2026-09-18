@@ -5,12 +5,8 @@ import TilesBackground from "./tiles-bg";
 
 export default function Footer() {
   return (
-    <TilesBackground
-      id="footer"
-      className="py-16 sm:py-20 text-[#271912] border-t border-zinc-200/60"
-      tileSize={380}
-    >
-      <footer className="max-w-8xl mx-auto px-6 sm:px-10 lg:px-16 w-full">
+    <footer id="footer" className="w-full bg-[#FFFFFF] py-16 sm:py-20 text-[#242424] border-t border-zinc-200/80 relative z-10">
+      <div className="max-w-8xl mx-auto px-6 sm:px-10 lg:px-16 w-full">
         {/* Top Section */}
         <div className="flex flex-col lg:flex-row justify-between items-start gap-10 lg:gap-16 mb-12 sm:mb-16">
           {/* Left Column: Logo & Studio Address */}
@@ -21,6 +17,7 @@ export default function Footer() {
                 alt="Logoipsum"
                 width={150}
                 height={30}
+                style={{ width: "auto" }}
                 className="brightness-0 object-contain"
                 priority
               />
@@ -35,7 +32,7 @@ export default function Footer() {
           {/* Right Column: Social Icons & Navigation Links */}
           <div className="flex flex-col items-start lg:items-end gap-8 w-full lg:w-auto">
             {/* Social Icons */}
-            <div className="flex items-center gap-6 text-[#271912]">
+            <div className="flex items-center gap-6 text-[#242424]">
               {/* X (Twitter) */}
               <a
                 href="https://x.com"
@@ -83,10 +80,10 @@ export default function Footer() {
               <Link href="/Project" className="hover:text-zinc-600 transition-colors">
                 Portfolio
               </Link>
-              <Link href="/#services" className="hover:text-zinc-600 transition-colors">
+              <Link href="/service" className="hover:text-zinc-600 transition-colors">
                 Services
               </Link>
-              <Link href="/#about" className="hover:text-zinc-600 transition-colors">
+              <Link href="/aboutus" className="hover:text-zinc-600 transition-colors">
                 About us
               </Link>
               <Link href="/contact" className="hover:text-zinc-600 transition-colors">
@@ -101,7 +98,7 @@ export default function Footer() {
           <p>©2026 Atelier. All rights reserved.</p>
           <p>Designed by Studio North</p>
         </div>
-      </footer>
-    </TilesBackground>
+      </div>
+    </footer>
   );
 }

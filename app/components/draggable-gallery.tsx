@@ -225,12 +225,13 @@ export default function DraggableGallery() {
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Physics animation references for ultra-smooth buttery glide
+  // Physics animation references for ultra-smooth buttery glide & ambient drift
   const targetPos = useRef({ x: -180, y: -120 });
   const currentPos = useRef({ x: -180, y: -120 });
   const velocity = useRef({ x: 0, y: 0 });
   const lastPointer = useRef({ x: 0, y: 0, time: 0 });
   const isDraggingRef = useRef(false);
+  const driftTime = useRef(0);
 
   // Lock body scroll when mobile fullscreen gallery is open
   useEffect(() => {
@@ -244,7 +245,7 @@ export default function DraggableGallery() {
     };
   }, [isMobileFullscreen]);
 
-  // Ultra-Smooth 60/120fps Physics & Fluid LERP Loop
+  // Ultra-Smooth 60/120fps Automatic Multi-Directional Floating & Drag Physics Loop
   useEffect(() => {
     let animationFrameId: number;
 
@@ -252,25 +253,48 @@ export default function DraggableGallery() {
       const { blockWidth, blockHeight } = dimensionsRef.current;
 
       if (!isDraggingRef.current) {
+        // Continuous smooth organic multi-directional ambient drift
+        driftTime.current += 0.0035;
+        const autoDriftX =
+          Math.cos(driftTime.current * 0.75) * 0.45 -
+          Math.sin(driftTime.current * 0.35) * 0.4 -
+          0.38;
+        const autoDriftY =
+          Math.sin(driftTime.current * 0.55) * 0.38 +
+          Math.cos(driftTime.current * 0.45) * 0.3 -
+          0.22;
+
+        targetPos.current.x += velocity.current.x + autoDriftX;
+        targetPos.current.y += velocity.current.y + autoDriftY;
+
         // Inertia momentum with silky glide decay
-        targetPos.current.x += velocity.current.x;
-        targetPos.current.y += velocity.current.y;
         velocity.current.x *= 0.955;
         velocity.current.y *= 0.955;
 
-        // Subpixel stop threshold
+        // Subpixel stop threshold for inertia
         if (Math.abs(velocity.current.x) < 0.02) velocity.current.x = 0;
         if (Math.abs(velocity.current.y) < 0.02) velocity.current.y = 0;
       }
 
       // Responsive buttery LERP interpolation
       const lerpFactor = isDraggingRef.current ? 0.38 : 0.12;
-      currentPos.current.x += (targetPos.current.x - currentPos.current.x) * lerpFactor;
-      currentPos.current.y += (targetPos.current.y - currentPos.current.y) * lerpFactor;
+      currentPos.current.x +=
+        (targetPos.current.x - currentPos.current.x) * lerpFactor;
+      currentPos.current.y +=
+        (targetPos.current.y - currentPos.current.y) * lerpFactor;
 
       // Infinite modulo toroidal wrap
-      const wrappedX = ((((currentPos.current.x % blockWidth) - blockWidth) % blockWidth) + blockWidth) % blockWidth - blockWidth;
-      const wrappedY = ((((currentPos.current.y % blockHeight) - blockHeight) % blockHeight) + blockHeight) % blockHeight - blockHeight;
+      const wrappedX =
+        ((((currentPos.current.x % blockWidth) - blockWidth) % blockWidth) +
+          blockWidth) %
+          blockWidth -
+        blockWidth;
+      const wrappedY =
+        ((((currentPos.current.y % blockHeight) - blockHeight) %
+          blockHeight) +
+          blockHeight) %
+          blockHeight -
+        blockHeight;
 
       if (canvasRef.current) {
         canvasRef.current.style.transform = `translate3d(${wrappedX}px, ${wrappedY}px, 0px)`;
@@ -286,12 +310,16 @@ export default function DraggableGallery() {
     return () => cancelAnimationFrame(animationFrameId);
   }, []);
 
-  // Mouse Handlers
+  // Mouse Handlers (Desktop Interactive Grab & Drag)
   const handleMouseDown = (e: React.MouseEvent) => {
     if (e.button !== 0) return;
     isDraggingRef.current = true;
     setIsDragging(true);
-    lastPointer.current = { x: e.clientX, y: e.clientY, time: performance.now() };
+    lastPointer.current = {
+      x: e.clientX,
+      y: e.clientY,
+      time: performance.now(),
+    };
     velocity.current = { x: 0, y: 0 };
   };
 
@@ -387,7 +415,13 @@ export default function DraggableGallery() {
       window.removeEventListener("touchmove", handleTouchMove);
       window.removeEventListener("touchend", handleTouchEnd);
     };
-  }, [isDragging, handleMouseMove, handleMouseUp, handleTouchMove, handleTouchEnd]);
+  }, [
+    isDragging,
+    handleMouseMove,
+    handleMouseUp,
+    handleTouchMove,
+    handleTouchEnd,
+  ]);
 
   // Reusable Gallery Grid Elements
   const renderGridContent = () =>
@@ -402,7 +436,10 @@ export default function DraggableGallery() {
         }}
       >
         {baseColumns.map((col, colIdx) => (
-          <div key={colIdx} className="flex flex-col gap-3 sm:gap-4 w-[238px] sm:w-[340px] flex-shrink-0">
+          <div
+            key={colIdx}
+            className="flex flex-col gap-3 sm:gap-4 w-[238px] sm:w-[340px] flex-shrink-0"
+          >
             {col.map((item) => (
               <div
                 key={`${offset.xIndex}-${offset.yIndex}-${item.id}`}
@@ -426,16 +463,16 @@ export default function DraggableGallery() {
 
   return (
     <>
-      {/* ---------------- 1. INLINE PAGE SECTION ---------------- */}
+      {/* ---------------- 1. INLINE PAGE SECTION (AUTOMATIC FLOATING DRIFT + DESKTOP DRAG) ---------------- */}
       <section
         id="portfolio"
         ref={containerRef}
         onMouseDown={handleMouseDown}
-        className={`relative w-full h-[65vh] sm:h-[90vh] overflow-hidden bg-[#e5e5e8] select-none ${
+        className={`relative w-full h-[65vh] sm:h-[90vh] overflow-hidden bg-[#FFFFFF] select-none ${
           isDragging ? "sm:cursor-grabbing" : "sm:cursor-grab"
         }`}
       >
-        {/* Endless 3x3 Tiled Canvas */}
+        {/* Endless 3x3 Tiled Canvas with Ambient Drift Motion */}
         <div
           ref={canvasRef}
           className="absolute will-change-transform pointer-events-none"
@@ -460,22 +497,21 @@ export default function DraggableGallery() {
             className="px-6 py-3.5 rounded-full bg-black/90 text-white font-medium text-sm shadow-2xl border border-white/20 backdrop-blur-md flex items-center justify-center gap-2.5 active:scale-95 transition-all cursor-pointer"
             aria-label="Click to see projects in full screen"
           >
-            <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+            <svg
+              className="w-4 h-4 text-white"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+              />
             </svg>
             <span>Click to see projects</span>
           </button>
-        </div>
-
-        {/* Desktop View Center Floating Badge */}
-        <div
-          className={`hidden sm:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none transition-all duration-700 ease-out ${
-            hasDragged ? "opacity-0 scale-90 pointer-events-none" : "opacity-100 scale-100"
-          }`}
-        >
-          <div className="px-8 py-4 rounded-full bg-[#fdfbf7]/95 text-zinc-900 font-medium text-base shadow-2xl border border-zinc-200/90 backdrop-blur-md flex items-center justify-center gap-2 select-none">
-            <span>Drag to Explore our Latest Work</span>
-          </div>
         </div>
       </section>
 
@@ -487,7 +523,7 @@ export default function DraggableGallery() {
           aria-label="Interactive Projects Gallery"
           onTouchStart={handleTouchStart}
           onMouseDown={handleMouseDown}
-          className="fixed inset-0 z-[99999999] w-screen h-screen bg-[#e5e5e8] select-none touch-none overflow-hidden"
+          className="fixed inset-0 z-[99999999] w-screen h-screen bg-[#FFFFFF] select-none touch-none overflow-hidden"
           style={{ isolation: "isolate" }}
         >
           {/* Top Bar with Close ('✕') Button */}
@@ -498,8 +534,18 @@ export default function DraggableGallery() {
               className="flex items-center gap-2 px-4 py-2.5 rounded-full bg-black/85 text-white text-xs font-semibold tracking-wider uppercase shadow-2xl backdrop-blur-md border border-white/20 active:scale-95 transition-all cursor-pointer"
               aria-label="Close fullscreen gallery"
             >
-              <svg className="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-4 h-4 text-white"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
               <span>Close</span>
             </button>
@@ -522,7 +568,9 @@ export default function DraggableGallery() {
           {/* Floating Mobile Thumb Interaction Hint */}
           <div
             className={`absolute bottom-8 left-1/2 -translate-x-1/2 z-20 pointer-events-none transition-all duration-700 ease-out ${
-              hasDragged ? "opacity-0 scale-90 pointer-events-none" : "opacity-100 scale-100"
+              hasDragged
+                ? "opacity-0 scale-90 pointer-events-none"
+                : "opacity-100 scale-100"
             }`}
           >
             <div className="px-5 py-2.5 rounded-full bg-black/75 text-white/90 font-normal text-xs shadow-xl backdrop-blur-md border border-white/10 flex items-center justify-center gap-2 select-none">

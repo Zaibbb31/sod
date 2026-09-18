@@ -15,8 +15,8 @@ export interface NavbarProps {
 
 const defaultNavLinks: NavItem[] = [
   { label: "Portfolio", href: "/Project" },
-  { label: "Services", href: "/#services" },
-  { label: "About us", href: "/#about" },
+  { label: "Services", href: "/service" },
+  { label: "About us", href: "/aboutus" },
   { label: "Contact us", href: "/contact" },
 ];
 
@@ -29,7 +29,7 @@ export default function Navbar({ theme = "light" }: NavbarProps) {
   // Monitor scroll position to collapse into the floating bar
   useEffect(() => {
     const handleScroll = () => {
-      if (window.scrollY > 80) {
+      if (window.scrollY > 100) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
@@ -43,14 +43,20 @@ export default function Navbar({ theme = "light" }: NavbarProps) {
 
   return (
     <>
-      {/* ---------------- 1. INITIAL TOP TRANSPARENT NAVBAR (Hero View) ---------------- */}
+      {/* ---------------- 1. INITIAL TOP NAVBAR WITH SUBTLE WHITE-TONED BLURRED BG (NOT END-TO-END) ---------------- */}
       <header
-        className={`w-full bg-transparent absolute top-0 left-0 transition-all duration-500 pointer-events-auto ${
-          isScrolled ? "opacity-0 -translate-y-6 pointer-events-none" : "opacity-100 translate-y-0"
+        className={`absolute top-4 sm:top-6 left-4 sm:left-8 lg:left-12 right-4 sm:right-8 lg:right-12 max-w-7xl mx-auto transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] pointer-events-auto rounded-none ${
+          isDarkHero
+            ? "bg-white/85 backdrop-blur-md border border-zinc-200/90 shadow-sm"
+            : "bg-white/10 backdrop-blur-md border border-white/20 shadow-lg"
+        } ${
+          isScrolled
+            ? "opacity-0 -translate-y-2 scale-[0.99] pointer-events-none"
+            : "opacity-100 translate-y-0 scale-100"
         }`}
         style={{ zIndex: 100 }}
       >
-        <div className="w-full max-w-8xl mx-auto px-6 sm:px-10 lg:px-16 py-6 md:py-8">
+        <div className="w-full px-6 sm:px-10 lg:px-12 py-4 md:py-5">
           <div className="flex items-center justify-between">
             {/* Left Links */}
             <nav className="hidden md:flex items-center gap-10 lg:gap-14 flex-1 justify-start">
@@ -63,7 +69,7 @@ export default function Navbar({ theme = "light" }: NavbarProps) {
                 Portfolio
               </Link>
               <Link
-                href="/#services"
+                href="/service"
                 className={`text-sm lg:text-base font-normal tracking-wide transition-opacity duration-200 ${
                   isDarkHero ? "text-zinc-800 hover:text-black" : "text-white/90 hover:text-white"
                 }`}
@@ -83,7 +89,10 @@ export default function Navbar({ theme = "light" }: NavbarProps) {
                   alt="Logoipsum"
                   width={150}
                   height={30}
-                  className={isDarkHero ? "brightness-0 object-contain" : "object-contain"}
+                  style={{ width: "auto" }}
+                  className={`h-6 lg:h-7 w-auto object-contain transition-all duration-300 ${
+                    isDarkHero ? "brightness-0" : ""
+                  }`}
                   priority
                 />
               </Link>
@@ -92,7 +101,7 @@ export default function Navbar({ theme = "light" }: NavbarProps) {
             {/* Right Links */}
             <div className="hidden md:flex items-center gap-10 lg:gap-14 flex-1 justify-end">
               <Link
-                href="/#about"
+                href="/aboutus"
                 className={`text-sm lg:text-base font-normal tracking-wide transition-opacity duration-200 ${
                   isDarkHero ? "text-zinc-800 hover:text-black" : "text-white/90 hover:text-white"
                 }`}
@@ -138,29 +147,47 @@ export default function Navbar({ theme = "light" }: NavbarProps) {
           </div>
         </div>
 
-        {/* Mobile Dropdown for Hero Section */}
-        {dropdownOpen && !isScrolled && (
-          <div className="md:hidden border-t border-white/15 bg-black/95 backdrop-blur-xl px-6 py-5 space-y-2.5 shadow-2xl relative z-[110]">
-            {defaultNavLinks.map((link) => (
-              <Link
-                key={link.label}
-                href={link.href}
-                onClick={() => setDropdownOpen(false)}
-                className="block text-sm font-semibold tracking-wider uppercase text-white hover:text-zinc-300 py-2 border-b border-white/10"
-              >
-                {link.label}
-              </Link>
-            ))}
+        {/* Mobile Dropdown for Hero Section with Smooth Transition */}
+        <div
+          className={`md:hidden grid transition-[grid-template-rows,opacity] duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            dropdownOpen && !isScrolled
+              ? "grid-rows-[1fr] opacity-100 pointer-events-auto"
+              : "grid-rows-[0fr] opacity-0 pointer-events-none"
+          }`}
+        >
+          <div className="overflow-hidden">
+            <div
+              className={`border-t px-6 py-5 space-y-2.5 shadow-2xl relative z-[110] backdrop-blur-xl ${
+                isDarkHero
+                  ? "border-zinc-200 bg-white/95 text-zinc-900"
+                  : "border-white/15 bg-black/95 text-white"
+              }`}
+            >
+              {defaultNavLinks.map((link) => (
+                <Link
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setDropdownOpen(false)}
+                  className={`block text-sm font-semibold tracking-wider uppercase py-2 border-b ${
+                    isDarkHero
+                      ? "text-zinc-900 hover:text-zinc-600 border-zinc-100"
+                      : "text-white hover:text-zinc-300 border-white/10"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </div>
           </div>
-        )}
+        </div>
       </header>
 
       {/* ---------------- 2. SCROLLED FLOATING CARD WITH 4-DOT ICON & EXPANDED MENU ---------------- */}
       <div
-        className={`fixed top-3.5 sm:top-5 left-1/2 -translate-x-1/2 w-[88%] max-w-[360px] sm:max-w-[390px] transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+        className={`fixed top-3.5 sm:top-5 left-1/2 -translate-x-1/2 w-[88%] max-w-[360px] sm:max-w-[390px] transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
           isScrolled
             ? "opacity-100 translate-y-0 scale-100 pointer-events-auto"
-            : "opacity-0 -translate-y-6 scale-95 pointer-events-none"
+            : "opacity-0 -translate-y-3 scale-[0.97] pointer-events-none"
         }`}
         style={{
           zIndex: 99999999,
@@ -168,7 +195,7 @@ export default function Navbar({ theme = "light" }: NavbarProps) {
         }}
       >
         {/* Single Cohesive Floating Card - Minimal & Compact */}
-        <div className="w-full bg-[#242220]/90 backdrop-blur-xl text-white border border-white/15 rounded-xl p-1.5 sm:p-2 shadow-[0_16px_40px_rgba(0,0,0,0.5)] transition-all duration-300">
+        <div className="w-full bg-[#242424]/90 backdrop-blur-xl text-white border border-white/15 rounded-xl p-1.5 sm:p-2 shadow-[0_16px_40px_rgba(0,0,0,0.5)] transition-all duration-300">
           {/* Top Bar Header (Always Visible in Scrolled Mode) */}
           <div className="flex items-center justify-between px-2.5 py-0.5 sm:py-1">
             {/* Logo on Left */}
@@ -185,6 +212,7 @@ export default function Navbar({ theme = "light" }: NavbarProps) {
                 alt="Logoipsum"
                 width={100}
                 height={20}
+                style={{ width: "auto" }}
                 className="h-4 sm:h-[18px] w-auto object-contain"
                 priority
               />

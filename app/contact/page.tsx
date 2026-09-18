@@ -37,7 +37,7 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#e5e7eb] text-zinc-900 selection:bg-zinc-900 selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#FFFFFF] text-zinc-900 selection:bg-zinc-900 selection:text-white">
       {/* Top Navbar */}
       <Navbar theme="dark" />
 
@@ -113,7 +113,7 @@ export default function ContactPage() {
         <div className="lg:col-span-6 xl:col-span-6 relative min-h-[580px] lg:min-h-screen flex items-center justify-center p-6 sm:p-10 md:p-14 lg:p-16">
           {/* Background Image */}
           <Image
-            src="/contact-bg.jpg"
+            src="/cta.jpg"
             alt="Interior Architecture & Studio Atmosphere"
             fill
             priority
@@ -125,7 +125,7 @@ export default function ContactPage() {
           <div className="relative z-10 w-full max-w-[500px] bg-white shadow-[0_30px_70px_rgba(0,0,0,0.22)] p-8 sm:p-10 md:p-12">
             {isSubmitted ? (
               <div className="py-10 text-center space-y-4">
-                <div className="w-12 h-12 rounded-full bg-stone-100 text-zinc-900 mx-auto flex items-center justify-center">
+                <div className="w-12 h-12 rounded-full bg-[#FFFFFF] border border-zinc-200 text-zinc-900 mx-auto flex items-center justify-center">
                   <svg
                     className="w-6 h-6"
                     fill="none"
