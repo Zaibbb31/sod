@@ -6,7 +6,9 @@ import Link from "next/link";
 import Navbar from "./components/nav";
 import TilesBackground from "./components/tiles-bg";
 import DraggableGallery from "./components/draggable-gallery";
+import CTASection from "./components/cta-section";
 import Footer from "./components/footer";
+import { allServices } from "./service/services-data";
 
 // Smooth Counting Number Component (Counts from 0 up to target)
 function AnimatedCounter({
@@ -61,89 +63,14 @@ function AnimatedCounter({
 }
 
 export default function Home() {
-  // Form State
-  const [formSubmitted, setFormSubmitted] = useState(false);
-  const [formData, setFormData] = useState({
-    fullName: "",
-    contactNumber: "",
-    emailAddress: "",
-    projectType: "",
-    message: "",
-  });
-
-  const handleFormSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setFormSubmitted(true);
-    setTimeout(() => {
-      setFormSubmitted(false);
-      setFormData({
-        fullName: "",
-        contactNumber: "",
-        emailAddress: "",
-        projectType: "",
-        message: "",
-      });
-    }, 4000);
-  };
-
   const statsData = [
-    { label: "Clients served", target: 150, suffix: "+", decimals: 0 },
-    { label: "Average rating", target: 4.9, suffix: "", decimals: 1 },
-    { label: "Projects completed", target: 200, suffix: "+", decimals: 0 },
-    { label: "Years of experience", target: 10, suffix: "+", decimals: 0 },
-    { label: "Awards won", target: 12, suffix: "", decimals: 0 },
+    { target: 320, unit: "K", symbol: "+", label: "Area Developed" },
+    { target: 95, unit: "", symbol: "%", label: "On-Time Delivery" },
+    { target: 40, unit: "", symbol: "+", label: "Industry Experts" },
+    { target: 12, unit: "", symbol: "y", label: "Years Guaranteed" },
   ];
 
-  const servicesData = [
-    {
-      id: 1,
-      title: "Residential Interiors",
-      description:
-        "Designing warm, refined homes that reflect your lifestyle — through thoughtful layouts, natural materials, and timeless details.",
-      image:
-        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      id: 2,
-      title: "Residential Interiors",
-      description:
-        "Designing warm, refined homes that reflect your lifestyle — through thoughtful layouts, natural materials, and timeless details.",
-      image:
-        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      id: 3,
-      title: "Residential Interiors",
-      description:
-        "Designing warm, refined homes that reflect your lifestyle — through thoughtful layouts, natural materials, and timeless details.",
-      image:
-        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      id: 4,
-      title: "Residential Interiors",
-      description:
-        "Designing warm, refined homes that reflect your lifestyle — through thoughtful layouts, natural materials, and timeless details.",
-      image:
-        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      id: 5,
-      title: "Residential Interiors",
-      description:
-        "Designing warm, refined homes that reflect your lifestyle — through thoughtful layouts, natural materials, and timeless details.",
-      image:
-        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
-    },
-    {
-      id: 6,
-      title: "Residential Interiors",
-      description:
-        "Designing warm, refined homes that reflect your lifestyle — through thoughtful layouts, natural materials, and timeless details.",
-      image:
-        "https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80",
-    },
-  ];
+  const servicesList = Object.values(allServices);
 
   return (
     <div className="min-h-screen w-full flex flex-col bg-[#FFFFFF] font-sans selection:bg-black selection:text-white relative">
@@ -219,26 +146,28 @@ export default function Home() {
               We are an interior design studio creating warm, timeless spaces shaped by thoughtful details, natural materials, and functionality.
             </h2>
 
-            {/* Stats Bar with Vertical Divider Lines & Animated Counter Numbers */}
-            <div className="w-full grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-y-10 gap-x-4 border-t border-zinc-200/80 pt-10 sm:pt-12">
-              {statsData.map((stat, idx) => (
+            {/* Stats Bar with 4 Figures & Superscript Accents */}
+            <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 lg:gap-14 pt-12 sm:pt-16 max-w-5xl mx-auto">
+              {statsData.map((stat) => (
                 <div
                   key={stat.label}
-                  className={`flex flex-col items-center justify-center px-4 ${
-                    idx !== statsData.length - 1 ? "lg:border-r lg:border-zinc-200/90" : ""
-                  }`}
+                  className="flex flex-col items-center sm:items-start text-center sm:text-left"
                 >
-                  <span className="text-xs sm:text-sm font-medium text-zinc-500 mb-2">
+                  <div className="flex items-start justify-center sm:justify-start font-normal tracking-tight leading-none mb-2 sm:mb-3">
+                    <span className="text-5xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[88px] font-normal tracking-tight text-zinc-950 leading-none">
+                      <AnimatedCounter
+                        target={stat.target}
+                        duration={1800}
+                        trigger={true}
+                      />
+                      {stat.unit}
+                    </span>
+                    <span className="text-2xl sm:text-3xl md:text-4xl lg:text-[42px] font-normal text-[#c4643b] leading-none ml-1 sm:ml-1.5 -mt-1 sm:-mt-2 lg:-mt-2.5 select-none">
+                      {stat.symbol}
+                    </span>
+                  </div>
+                  <span className="text-xs sm:text-sm md:text-base font-normal text-zinc-500 tracking-normal">
                     {stat.label}
-                  </span>
-                  <span className="text-4xl sm:text-5xl md:text-6xl font-semibold text-zinc-900 tracking-tight">
-                    <AnimatedCounter
-                      target={stat.target}
-                      suffix={stat.suffix}
-                      decimals={stat.decimals}
-                      duration={1800}
-                      trigger={true}
-                    />
                   </span>
                 </div>
               ))}
@@ -305,37 +234,44 @@ export default function Home() {
 
           {/* 3-Column Services / Projects Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-            {servicesData.map((service, idx) => (
+            {servicesList.map((service) => (
               <div
-                key={idx}
-                className="flex flex-col bg-[#FFFFFF] border border-zinc-200/90 p-4 sm:p-5 shadow-sm hover:shadow-md transition-shadow duration-300"
+                key={service.slug}
+                className="group flex flex-col bg-[#FFFFFF] border border-zinc-200/90 p-4 sm:p-5 shadow-sm hover:shadow-md transition-all duration-300"
               >
-                {/* Image */}
-                <div className="relative aspect-square w-full overflow-hidden bg-zinc-200 mb-5">
+                {/* Image Link */}
+                <Link
+                  href={`/service/${service.slug}`}
+                  className="relative aspect-square w-full overflow-hidden bg-zinc-200 mb-5 block cursor-pointer"
+                >
                   <Image
                     src={service.image}
                     alt={service.title}
                     fill
                     sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                    unoptimized
-                    className="object-cover object-center transition-transform duration-500 hover:scale-105"
+                    className="object-cover object-center transition-transform duration-500 group-hover:scale-105"
                   />
-                </div>
+                </Link>
 
                 {/* Content */}
                 <h3 className="text-xl sm:text-2xl font-semibold text-zinc-900 tracking-tight mb-2">
-                  {service.title}
+                  <Link
+                    href={`/service/${service.slug}`}
+                    className="hover:text-black transition-colors"
+                  >
+                    {service.title}
+                  </Link>
                 </h3>
                 <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed mb-6 flex-1">
-                  {service.description}
+                  {service.shortDescription}
                 </p>
 
                 {/* Button */}
                 <Link
-                  href="/contact"
-                  className="w-full py-3 bg-white text-zinc-900 border border-zinc-200/90 text-sm font-medium hover:bg-zinc-100 transition-colors text-center shadow-xs block"
+                  href={`/service/${service.slug}`}
+                  className="w-full py-3 bg-white text-zinc-900 border border-zinc-200/90 text-sm font-medium hover:bg-zinc-950 hover:text-white hover:border-zinc-950 transition-all text-center shadow-xs block"
                 >
-                  View More
+                  View More &rarr;
                 </Link>
               </div>
             ))}
@@ -344,109 +280,7 @@ export default function Home() {
       </TilesBackground>
 
       {/* ----------------- 6. GET IN TOUCH / CONTACT FORM SECTION (FULL WIDTH END-TO-END) ----------------- */}
-      <section id="contact" className="relative w-full min-h-[640px] flex items-center overflow-hidden">
-        {/* Full Bleed End-to-End Background Image */}
-        <div className="absolute inset-0 w-full h-full z-0">
-          <Image
-            src="/cta.jpg"
-            alt="Interior Architecture Studio Atmosphere"
-            fill
-            priority
-            unoptimized
-            sizes="100vw"
-            className="object-cover object-center w-full h-full"
-          />
-        </div>
-
-        {/* Inner Content Centered in Max-W-8xl */}
-        <div className="relative z-10 w-full max-w-8xl mx-auto px-6 sm:px-12 lg:px-16 py-16 sm:py-24 grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-          {/* Left Column: Heading & Description at Top Left */}
-          <div className="lg:col-span-6 text-white space-y-4 sm:space-y-6 pt-1 lg:pt-2">
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white drop-shadow-md">
-              Get in touch
-            </h2>
-            <p className="text-base sm:text-lg text-white/95 max-w-md leading-relaxed font-normal drop-shadow-sm">
-              Let’s create a space you’ll love. Reach out and let’s design something extraordinary together.
-            </p>
-          </div>
-
-          {/* Right Column: White Contact Form Card */}
-          <div className="lg:col-span-6 flex justify-center lg:justify-end">
-            <div className="bg-white p-6 sm:p-10 shadow-2xl w-full max-w-lg">
-              <p className="text-sm sm:text-base font-normal text-zinc-700 mb-6 leading-relaxed">
-                Leave us a message here, and we’ll reach out with personalised support.
-              </p>
-
-              {formSubmitted ? (
-                <div className="p-6 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-sm text-center animate-in fade-in duration-300">
-                  <p className="font-semibold text-base mb-1">Thank you for reaching out!</p>
-                  <p className="text-sm text-emerald-700">We have received your message and will be in touch shortly.</p>
-                </div>
-              ) : (
-                <form onSubmit={handleFormSubmit} className="space-y-3 sm:space-y-3.5">
-                  <div>
-                    <input
-                      type="text"
-                      required
-                      placeholder="Full Name"
-                      value={formData.fullName}
-                      onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                      className="w-full bg-[#242424] text-white placeholder:text-zinc-300/80 px-4 py-3.5 sm:py-4 border-0 focus:outline-none focus:ring-1 focus:ring-zinc-400 text-sm sm:text-base"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="tel"
-                      required
-                      placeholder="Contact Number"
-                      value={formData.contactNumber}
-                      onChange={(e) => setFormData({ ...formData, contactNumber: e.target.value })}
-                      className="w-full bg-[#242424] text-white placeholder:text-zinc-300/80 px-4 py-3.5 sm:py-4 border-0 focus:outline-none focus:ring-1 focus:ring-zinc-400 text-sm sm:text-base"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="email"
-                      required
-                      placeholder="Email Address"
-                      value={formData.emailAddress}
-                      onChange={(e) => setFormData({ ...formData, emailAddress: e.target.value })}
-                      className="w-full bg-[#242424] text-white placeholder:text-zinc-300/80 px-4 py-3.5 sm:py-4 border-0 focus:outline-none focus:ring-1 focus:ring-zinc-400 text-sm sm:text-base"
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Project Type"
-                      value={formData.projectType}
-                      onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                      className="w-full bg-[#242424] text-white placeholder:text-zinc-300/80 px-4 py-3.5 sm:py-4 border-0 focus:outline-none focus:ring-1 focus:ring-zinc-400 text-sm sm:text-base"
-                    />
-                  </div>
-                  <div>
-                    <textarea
-                      required
-                      rows={3}
-                      placeholder="Tell Us About Your Project"
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full bg-[#242424] text-white placeholder:text-zinc-300/80 px-4 py-3.5 sm:py-4 border-0 focus:outline-none focus:ring-1 focus:ring-zinc-400 text-sm sm:text-base resize-none"
-                    />
-                  </div>
-                  <div className="pt-2">
-                    <button
-                      type="submit"
-                      className="w-full py-3.5 sm:py-4 bg-[#242424] text-white font-semibold text-sm sm:text-base hover:bg-[#181818] active:scale-[0.99] transition-all cursor-pointer shadow-md tracking-wider uppercase"
-                    >
-                      Submit
-                    </button>
-                  </div>
-                </form>
-              )}
-            </div>
-          </div>
-        </div>
-      </section>
+      <CTASection />
 
       {/* ----------------- 7. FOOTER SECTION (TILES BACKGROUND) ----------------- */}
       <Footer />

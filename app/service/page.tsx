@@ -159,14 +159,20 @@ export default function ServicesPage() {
                         {service.description}
                       </p>
 
-                      {/* CTA Button */}
-                      <div className="mt-5 sm:mt-7">
+                      {/* Action Buttons */}
+                      <div className="mt-5 sm:mt-7 flex flex-wrap items-center gap-3 sm:gap-4">
+                        <Link
+                          href={`/service/${service.id}`}
+                          className="inline-flex items-center gap-2 px-6 py-3.5 bg-zinc-900 hover:bg-black text-white text-xs sm:text-sm font-medium tracking-wide transition-all shadow-sm active:scale-95 cursor-pointer"
+                        >
+                          <span>Explore Service</span>
+                          <span className="text-sm">&rarr;</span>
+                        </Link>
                         <Link
                           href="/contact"
-                          className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-full bg-[#18181b] hover:bg-black text-white text-xs sm:text-sm font-medium tracking-wide transition-all shadow-md active:scale-95 cursor-pointer"
+                          className="inline-flex items-center gap-2 px-6 py-3.5 border border-zinc-300 hover:border-zinc-900 text-zinc-900 text-xs sm:text-sm font-medium tracking-wide transition-all active:scale-95 cursor-pointer bg-white"
                         >
                           <span>Get In Touch</span>
-                          <span className="text-sm">&rarr;</span>
                         </Link>
                       </div>
                     </div>

@@ -5,7 +5,7 @@ import TilesBackground from "./tiles-bg";
 
 export default function Footer() {
   return (
-    <footer id="footer" className="w-full bg-[#FFFFFF] py-16 sm:py-20 text-[#242424] border-t border-zinc-200/80 relative z-10">
+    <footer id="footer" className="w-full bg-[#FFFFFF] py-16 sm:py-20 text-[#242424] relative z-10">
       <div className="max-w-8xl mx-auto px-6 sm:px-10 lg:px-16 w-full">
         {/* Top Section */}
         <div className="flex flex-col lg:flex-row justify-between items-start gap-10 lg:gap-16 mb-12 sm:mb-16">
