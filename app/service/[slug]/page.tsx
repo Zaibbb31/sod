@@ -6,7 +6,6 @@ import Link from "next/link";
 import Navbar from "../../components/nav";
 import Footer from "../../components/footer";
 import CTASection from "../../components/cta-section";
-import TilesBackground from "../../components/tiles-bg";
 import { getServiceBySlug, ServiceDetail, allServices } from "../services-data";
 
 interface PageProps {
@@ -28,8 +27,8 @@ export default function ServiceSlugPage({ params }: PageProps) {
       {/* Global Top Navbar */}
       <Navbar theme="dark" />
 
-      {/* Main Service Content with Tiles Background */}
-      <TilesBackground className="flex-1 pt-28 sm:pt-36 lg:pt-40 pb-16 sm:pb-24">
+      {/* Main Service Content with Clean White Background */}
+      <div className="flex-1 bg-[#FFFFFF] pt-28 sm:pt-36 lg:pt-40 pb-16 sm:pb-24">
         <main className="max-w-8xl mx-auto px-6 sm:px-10 lg:px-16 w-full">
           {/* Top Header Section */}
           <div className="pb-8 sm:pb-12 max-w-4xl">
@@ -155,7 +154,7 @@ export default function ServiceSlugPage({ params }: PageProps) {
             </div>
           </div>
         </main>
-      </TilesBackground>
+      </div>
 
       {/* Reusable Full-Bleed Contact CTA Section */}
       <CTASection />

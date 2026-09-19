@@ -78,7 +78,7 @@ export default function Home() {
       <Navbar />
 
       {/* ----------------- 1. HERO SECTION ----------------- */}
-      <section className="relative min-h-screen h-screen flex flex-col justify-end overflow-hidden bg-black text-white">
+      <section className="relative min-h-screen h-screen flex flex-col justify-end overflow-hidden bg-black text-white no-reveal hero-immediate">
         {/* Background Hero Image (z-0 ensures it stays above the parent bg-black) */}
         <div className="absolute inset-0 w-full h-full z-0">
           <Image
@@ -134,7 +134,7 @@ export default function Home() {
         className="flex items-center justify-center py-16 sm:py-24 lg:py-28 text-zinc-900"
         tileSize={380}
       >
-        <div className="max-w-6xl mx-auto px-6 sm:px-10 lg:px-16 w-full text-center relative">
+        <div className="max-w-8xl mx-auto px-6 sm:px-10 lg:px-16 w-full text-center relative">
           <div className="w-full flex flex-col items-center justify-center">
             {/* Header Tag */}
             <p className="text-xs font-semibold tracking-[0.25em] text-zinc-500 uppercase mb-5 sm:mb-7">
@@ -142,18 +142,18 @@ export default function Home() {
             </p>
 
             {/* Main Statement */}
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-normal tracking-tight text-zinc-900 leading-[1.25] max-w-3xl mx-auto mb-14 sm:mb-20">
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-normal tracking-tight text-zinc-900 leading-[1.25] max-w-4xl mx-auto mb-14 sm:mb-20">
               We are an interior design studio creating warm, timeless spaces shaped by thoughtful details, natural materials, and functionality.
             </h2>
 
-            {/* Stats Bar with 4 Figures & Superscript Accents */}
-            <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-8 sm:gap-10 lg:gap-14 pt-12 sm:pt-16 max-w-5xl mx-auto">
+            {/* Stats Bar with 4 Figures & Symmetrical Centered Layout */}
+            <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-12 lg:gap-16 pt-12 sm:pt-16 max-w-8xl mx-auto items-center justify-items-center">
               {statsData.map((stat) => (
                 <div
                   key={stat.label}
-                  className="flex flex-col items-center sm:items-start text-center sm:text-left"
+                  className="flex flex-col items-center justify-center text-center w-full"
                 >
-                  <div className="flex items-start justify-center sm:justify-start font-normal tracking-tight leading-none mb-2 sm:mb-3">
+                  <div className="flex items-start justify-center font-normal tracking-tight leading-none mb-2 sm:mb-3">
                     <span className="text-5xl sm:text-6xl md:text-7xl lg:text-[80px] xl:text-[88px] font-normal tracking-tight text-zinc-950 leading-none">
                       <AnimatedCounter
                         target={stat.target}
@@ -177,7 +177,7 @@ export default function Home() {
       </TilesBackground>
 
       {/* ----------------- 3. INSPIRATION BANNER SECTION ----------------- */}
-      <section className="relative w-full min-h-[42vh] sm:min-h-[50vh] lg:min-h-[55vh] flex items-center overflow-hidden bg-black text-white">
+      <section className="relative w-full min-h-[180px] sm:min-h-[220px] lg:min-h-[260px] flex items-center justify-center overflow-hidden bg-black text-white">
         {/* Background Image: Architectural Lighting Fixture */}
         <div className="absolute inset-0 w-full h-full z-0">
           <Image
@@ -186,22 +186,18 @@ export default function Home() {
             fill
             sizes="100vw"
             unoptimized
-            className="object-cover object-right sm:object-center w-full h-full opacity-95"
+            className="object-cover object-center w-full h-full opacity-95"
           />
           {/* Subtle gradient vignette to blend deep dark left area with the lighting on the right */}
           <div className="absolute inset-0 bg-gradient-to-r from-black via-black/60 to-transparent pointer-events-none" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/50 pointer-events-none" />
         </div>
 
-        {/* Text Content */}
-        <div className="relative z-10 w-full max-w-8xl mx-auto px-6 sm:px-10 lg:px-16 py-16 sm:py-20 lg:py-24">
-          <div className="max-w-3xl">
-            <h2 className="text-5xl sm:text-7xl md:text-8xl lg:text-[92px] xl:text-[104px] font-medium tracking-tight text-white uppercase leading-[0.98] drop-shadow-2xl">
-              We design<br />
-              spaces<br />
-              that inspire
-            </h2>
-          </div>
+        {/* Text Content Centered */}
+        <div className="relative z-10 w-full max-w-8xl mx-auto px-6 sm:px-10 lg:px-16 py-10 sm:py-12 lg:py-14 flex items-center justify-center text-center">
+          <h2 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[76px] font-medium tracking-tight text-white uppercase leading-none drop-shadow-2xl text-center whitespace-normal lg:whitespace-nowrap">
+            We design spaces that inspire
+          </h2>
         </div>
       </section>
 

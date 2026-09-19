@@ -26,7 +26,7 @@ export const allServices: Record<string, ServiceDetail> = {
     shortDescription:
       "Professional construction services managed with precision, quality craftsmanship, and efficient execution from planning to final delivery.",
     image:
-      "https://images.unsplash.com/photo-1541888946425-d0fbb180c5f7?auto=format&fit=crop&w=2200&q=85",
+      "https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=2200&q=85",
     aboutHeading: "About service",
     aboutDescription:
       "Cerette provides comprehensive construction services focused on delivering high-quality residential, commercial, and development projects through efficient execution and precise project management. Our construction approach combines technical expertise, skilled craftsmanship, and organized workflows to ensure every project is completed with durability, functionality, and modern construction standards. From early coordination to final delivery, we prioritize quality control, timeline efficiency, and seamless collaboration throughout every stage of the construction process.",
