@@ -239,8 +239,8 @@ export default function AboutUsPage() {
                   <p className="text-sm sm:text-base font-semibold text-white leading-tight">
                     Adrian Varell
                   </p>
-                  <p className="text-xs text-white/75 font-normal">
-                    Founder & CEO, Cerette
+                  <p className="text-xs text-white/80 font-normal">
+                    <span className="font-accent text-sm text-[#e8a384] mr-1">Founder &amp; CEO,</span> Cerette
                   </p>
                 </div>
               </div>

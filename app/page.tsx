@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import Navbar from "./components/nav";
-import TilesBackground from "./components/tiles-bg";
 import DraggableGallery from "./components/draggable-gallery";
 import CTASection from "./components/cta-section";
 import Footer from "./components/footer";
@@ -102,6 +101,9 @@ export default function Home() {
               <div className="flex items-center gap-2.5 mb-3 sm:mb-4">
                 <span className="w-4 h-[1.5px] bg-white/80 rotate-[-45deg] origin-center inline-block" />
                 <p className="text-xs sm:text-sm font-medium tracking-[0.2em] text-white/90 uppercase">
+                  <span className="font-accent text-lg sm:text-xl text-white/95 normal-case tracking-normal mr-1.5 font-normal">
+                    Art of
+                  </span>
                   Interior Design Studio
                 </p>
               </div>
@@ -128,22 +130,25 @@ export default function Home() {
         </main>
       </section>
 
-      {/* ----------------- 2. ABOUT US SECTION WITH TILES BACKGROUND ----------------- */}
-      <TilesBackground
+      {/* ----------------- 2. ABOUT US SECTION ----------------- */}
+      <section
         id="about"
-        className="flex items-center justify-center py-16 sm:py-24 lg:py-28 text-zinc-900"
-        tileSize={380}
+        className="flex items-center justify-center py-16 sm:py-24 lg:py-28 text-zinc-900 bg-[#FFFFFF]"
       >
         <div className="max-w-8xl mx-auto px-6 sm:px-10 lg:px-16 w-full text-center relative">
           <div className="w-full flex flex-col items-center justify-center">
             {/* Header Tag */}
-            <p className="text-xs font-semibold tracking-[0.25em] text-zinc-500 uppercase mb-5 sm:mb-7">
+            <p className="text-xs sm:text-sm font-semibold tracking-[0.25em] text-zinc-500 uppercase mb-5 sm:mb-7">
               About Us
             </p>
 
-            {/* Main Statement */}
-            <h2 className="text-2xl sm:text-4xl md:text-5xl font-normal tracking-tight text-zinc-900 leading-[1.25] max-w-4xl mx-auto mb-14 sm:mb-20">
-              We are an interior design studio creating warm, timeless spaces shaped by thoughtful details, natural materials, and functionality.
+            {/* Main Statement with Parisienne Script Accent */}
+            <h2 className="text-2xl sm:text-4xl md:text-5xl font-normal tracking-tight text-zinc-900 leading-[1.3] max-w-4xl mx-auto mb-14 sm:mb-20">
+              We are an interior design studio creating{" "}
+              <span className="font-accent text-3xl sm:text-5xl md:text-6xl text-[#c4643b] normal-case px-1 font-normal inline-block">
+                warm, timeless
+              </span>{" "}
+              spaces shaped by thoughtful details, natural materials, and functionality.
             </h2>
 
             {/* Stats Bar with 4 Figures & Symmetrical Centered Layout */}
@@ -174,7 +179,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </TilesBackground>
+      </section>
 
       {/* ----------------- 3. INSPIRATION BANNER SECTION ----------------- */}
       <section className="relative w-full min-h-[180px] sm:min-h-[220px] lg:min-h-[260px] flex items-center justify-center overflow-hidden bg-black text-white">
@@ -204,11 +209,10 @@ export default function Home() {
       {/* ----------------- 4. 2D DRAGGABLE WORK GALLERY SECTION ----------------- */}
       <DraggableGallery />
 
-      {/* ----------------- 5. WHAT WE DO / SERVICES SECTION (TILES BACKGROUND) ----------------- */}
-      <TilesBackground
+      {/* ----------------- 5. WHAT WE DO / SERVICES SECTION ----------------- */}
+      <section
         id="services"
-        className="py-24 sm:py-32 text-zinc-900"
-        tileSize={380}
+        className="py-24 sm:py-32 text-zinc-900 bg-[#FFFFFF]"
       >
         <div className="max-w-8xl mx-auto px-6 sm:px-10 lg:px-16">
           {/* Section Header: Left Tag & Right Headline */}
@@ -273,7 +277,7 @@ export default function Home() {
             ))}
           </div>
         </div>
-      </TilesBackground>
+      </section>
 
       {/* ----------------- 6. GET IN TOUCH / CONTACT FORM SECTION (FULL WIDTH END-TO-END) ----------------- */}
       <CTASection />

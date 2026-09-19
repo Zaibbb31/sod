@@ -5,7 +5,6 @@ import Image from "next/image";
 import Link from "next/link";
 import Navbar from "../components/nav";
 import Footer from "../components/footer";
-import TilesBackground from "../components/tiles-bg";
 
 interface ServiceItem {
   id: string;
@@ -77,8 +76,8 @@ export default function ServicesPage() {
       {/* Top Navbar */}
       <Navbar theme="dark" />
 
-      {/* Main Content with Tiles Background */}
-      <TilesBackground className="flex-1 pt-28 sm:pt-36 lg:pt-40 pb-20 sm:pb-28">
+      {/* Main Content */}
+      <div className="flex-1 bg-[#FFFFFF] pt-28 sm:pt-36 lg:pt-40 pb-20 sm:pb-28">
         <main className="max-w-8xl mx-auto px-6 sm:px-10 lg:px-16 w-full">
           {/* Header Section */}
           <div className="pb-12 sm:pb-16 lg:pb-20">
@@ -182,7 +181,7 @@ export default function ServicesPage() {
             })}
           </div>
         </main>
-      </TilesBackground>
+      </div>
 
       {/* Footer */}
       <Footer />
